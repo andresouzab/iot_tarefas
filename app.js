@@ -5,12 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { Sequelize } = require('sequelize');
 const sequelize = require('./db');
+const routes_tarefa = require('./routes/tarefa');
+const routes_usuario = require('./routes/usuario');
+sequelize.sync();
 
 //Models Importações
-const Tarefa = require('./models/tarefa');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -24,8 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/tarefa', routes_tarefa);
+app.use('/usuario', routes_usuario);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

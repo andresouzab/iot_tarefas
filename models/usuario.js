@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
-const Tarefa = sequelize.define('Tarefa', {
+const Usuario = sequelize.define('Usuario', {
   // Model attributes are defined here
   id: {
     type: DataTypes.INTEGER,
@@ -9,28 +9,20 @@ const Tarefa = sequelize.define('Tarefa', {
     autoIncrement: true,
     primaryKey: true,
   },
-  titulo: {
+  usuario: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  descricao: {
+  email: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  status: {
+  senha: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  data_cricao: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  data_limite: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
+  }
 }, {
   // Other model options go here
 });
-module.exports = Tarefa;
+module.exports = Usuario;
 // `sequelize.define` also returns the model
