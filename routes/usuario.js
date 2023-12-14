@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const sequelize = require('../db');
 const usuario = require('../models/usuario');
+const bcrypt = require('bcrypt');
+
 
 //GET Retorna usuarios com paginação e ordenação
 router.get('/', async (req, res) => {
@@ -42,8 +44,10 @@ router.get('/:id', async (req, res) => {
 
 //POST Cria um usuario
 router.post('/', async (req, res) => {
-    sequelize.query(`INSERT INTO usuarios (usuario, email, senha) VALUES (?, ?, ?)`, {replacements:
-         [req.body.usuario, req.body.email, req.body.senha]})
+      // Encriptar a senha
+        const senhaEncriptada = await bcrypt.hash(req.body.senha, 10); // 10 é o número de rounds para gerar o salt
+    sequelize.query(`INSERT INTO usuarios (usuario, email, senha, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)`, {replacements:
+         [req.body.usuario, req.body.email, senhaEncriptada, new Date(), new Date()]})
         .then(([results, metadata]) => {
         res.status(201).json({
             sucess: true,

@@ -3,7 +3,7 @@ const sequelize = require('../db');
 
 const Usuario = sequelize.define('Usuario', {
   // Model attributes are defined here
-  id: {
+  id_usuarios: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
